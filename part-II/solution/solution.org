@@ -1724,21 +1724,21 @@ E_{x, y + 1} - E_{x, y} & = & \sum_{t = 0}^n w_{x, t} \min (y + 1, t) - \sum_{t 
 #+BEGIN_LaTeX
 \begin{theorem}
   若 $a \neq b$ ，则 
-  $$gcd (k^{2^a} + 1, k^{2^b} + 1) = \begin{cases} 2 & \text{if} k \equiv 1 \mod{2} \\ 1 & \text{otherwise}\end{cases}$$
+  $$gcd (k^{2^a} + 1, k^{2^b} + 1) = \begin{cases} 2 & \text{if} \quad k \equiv 1 \mod{2} \\ 1 & \text{otherwise}\end{cases}$$
 \end{theorem}
 \begin{proof}
   不妨令 $a < b$ ，有
   $$
   (k^{2^a} - 1)(k^{2^a} + 1)(k^{2^{a + 1}} + 1) \dots (k^{2^{b - 1}} + 1) = k^{2^b} - 1
   $$
-  也就是 $$k^{2^b} + 1 \equiv 2 \mod{k^{2^a} + 1}$$
+  也就是 $$k^{2^b} + 1 \equiv 2 \mod{(k^{2^a} + 1)}$$
   然后结论显然了。
 \end{proof}
 #+END_LaTeX
 
     所以，当 $k$ 为奇数时，答案为 $\frac{1}{2^{r - l}} \Pi_{i = l}^r (k^{2^i} + 1)$ ，否则答案为 $\Pi_{i = l}^r (k^{2^i} + 1)$ 。我们只需求出这个 $\Pi$ 即可。
 
-    易得 $$\Pi_{i = l}^r (k^{2^i} + 1) = \frac{k^{2^{r + 1}} - 1}{k^{2^l} - 1}$$ 。如果 $k^{2^l} \not\equiv 1 \mod{p}$ ，直接上逆元即可。如果 $k^{2^l} - 1 \equiv 1 \mod{p}$ ，则 $k^{2^l} + 1 \equiv 2 \mod{p}$ ， $Pi$ 即为 $2^{r - l + 1}$ 。
+    易得 $$\Pi_{i = l}^r (k^{2^i} + 1) = \frac{k^{2^{r + 1}} - 1}{k^{2^l} - 1}$$ 。如果 $k^{2^l} \not\equiv 1 \mod{p}$ ，直接上逆元即可。如果 $k^{2^l} - 1 \equiv 1 \mod{p}$ ，则 $k^{2^l} + 1 \equiv 2 \mod{p}$ ， $\Pi$ 即为 $2^{r - l + 1}$ 。
 
     时间复杂度为 $O(T \log rp)$ 。
 
@@ -1758,7 +1758,7 @@ E_{x, y + 1} - E_{x, y} & = & \sum_{t = 0}^n w_{x, t} \min (y + 1, t) - \sum_{t 
 
 * Accepted Volume XI
 ** Accepted 176E  Archaeology					      :worth:
-   \ref{176E}
+   \label{176E}
 *** 题意
     给定大小为 $n$ 的一棵边权树，维护以下操作：
       1. 激活一个点
@@ -1808,17 +1808,17 @@ $|S| \leq 5 \times 10^5$
 ** Accepted 200E  Tractor College
 *** 题意
     给定四个非负整数 $c_3, c_4, c_5, S$ 要求 $k_3, k_4, k_5$ ，满足：
-    \begin{displaymath}
+    \[
     \begin{cases}
-    \label{ref:200E-1} 0 \leq k_3 \leq k_4 \leq k_5 \\
-    \label{ref:200E-2} c_3 k_3 + c_4 k_4 + c_5 k_5 = S \\
-    \label{ref:200E-3} |c_3 k_3 - c_4 k_4| +|c_4 k_4 - c_5 k_5| \text{最小} \\
+    0 \leq k_3 \leq k_4 \leq k_5 \\
+    c_3 k_3 + c_4 k_4 + c_5 k_5 = S \\
+    |c_3 k_3 - c_4 k_4| +|c_4 k_4 - c_5 k_5| \text{最小} \\
     \end{cases}
-    \end{displaymath}
+    \]
 
     $c_3 + c_4 + c_5 \leq 10^5, S \leq 10^5$
 *** 算法
-    不妨枚举 $k_4$ 。根据 \ref{ref:200E-2} 可以由拓展欧几里得求出一组解 $k_3 = a, k_5 = b$ ，可以知道对于每组解，都有 $k_3 = a + c_3 t, k_5 = b - c_5 t, t \in Z$ 。根据 \ref{ref:20E-1} 可以知道 $t$ 的范围，易知 \ref{ref:200E-3} 关于 $t$ 是单调的，三分 $t$ 即可。
+    不妨枚举 $k_4$ 。根据第二个条件可以由拓展欧几里得求出一组解 $k_3 = a, k_5 = b$ ，可以知道对于每组解，都有 $k_3 = a + c_3 t, k_5 = b - c_5 t, t \in Z$ 。根据第一个条件可以知道 $t$ 的范围，易知目标函数关于 $t$ 是单调的，三分 $t$ 即可。
 
     时间复杂度 $O(S \log (c_3 + c_4 +c_5))$ 。
  
@@ -1838,7 +1838,7 @@ $|S| \leq 5 \times 10^5$
 
 再介绍另一个算法。对于每个 $x$ ，我们维护每个点上下第一个没有被删除的点是哪个。对于每次询问，我们暴力枚举横坐标，如果当前横坐标与目标横坐标差大于已有的最优解就直接 break ，否则利用上下的点更新答案。这样的最坏情况是 $O(Kn)$ 的。如果我们保证 $n > m$ ，那么可以证明，这样做的最坏情况是 $O(\min(sqrt(K), m)$ 的。
 
-** Accepted 201E  Thoroughly Bureaucratic Organization		      :worth:
+** Accepted 201E  Thoroughly Bureaucratic Organization
 *** 题意
     有一个 $n$ 的排列，你一次可以询问不超过 $m$ 个位置的值，但是返回的结果是乱序的，也就是返回的若干个值恰好是这若干个位置对应的值，但是顺序不一定相同。求最优策略下至少要询问多少次才可以确定原排列。
 
@@ -1866,11 +1866,11 @@ $|S| \leq 5 \times 10^5$
 
     一种优化方式是：令 $f_{i, S, inv}$ 表示 $T_i$ 中，出现了 $S$ 这个集合且已知逆序对数恰好为 $inv$ 时，最少要匹配到 $T_i$ 的第几个字符串。转移就是枚举下一个字符串是什么，预处理出 $T_i$ 的第 $j$ 个位置开始第一次出现 $x$ 的位置，就可以枚举后 $O(1)$ 转移了。
 
-    时间复杂度 $O(n^3 2^n + n \sum |T_i|$ 。
+    时间复杂度 $O(n^3 2^n + n \sum |T_i|)$ 。
 
 ** Accepted 204E  Little Elephant and Strings
 *** 题意
-    给定 $n$ 个串 $S_{1 \dots n}$，对于每个串，求出有多少个子串，使得这个子串至少在 $n$ 个串中的 $k$ 个串中出现过。
+    给定 $n$ 个串 $S_{1 \dots n}$ ，对于每个串，求出有多少个子串，使得这个子串至少在 $n$ 个串中的 $k$ 个串中出现过。
 
     $n, k \leq 10^5, \sum |S_i| \leq 10^5$
 *** 算法
@@ -1890,7 +1890,7 @@ $n, a_i \leq 250000$
 我们先将 $a$ 数组粘贴在自身后面，那么原题变为： $n$ 次询问，每次询问 $i + 1$ 到 $i + n$ 至少要几次跳跃。
 
 令 $f_{i, j}$ 表示起始点至少要在 $f_{i, j}$ 才能在 $2^j$ 步内跳到 $i$ 处。可以得到 $f_{i, j}$ 的递推式为
-$$f_{i, j} = \begin{cases} i - a_i + 1 & j = 1 \\ \min_{t = f_{i - 1, j - 1}^i} f_{t, j - 1} \text{otherwise} \end{cases}$$
+$$f_{i, j} = \begin{cases} i - a_i + 1 & j = 1 \\ \min_{t = f_{i - 1, j - 1}^i} \{ f_{t, j - 1} \} & \text{otherwise} \end{cases}$$
 易知预处理时间复杂度为 $O(n \log^2 n)$ 。
 
 考虑每次查询从 $s$ 跳到 $t$ 的最少次数。我们可以二分，然后利用 $f$ 判断是否可以到达，这样复杂度是 $O(n \log^2 n)$ 的，当然，直接在 $f$ 上走也是可以的。我们从 $\floor{\log_2 n}$ 开始枚举 $j$ ，如果 $f_{t, j} \leq s$ ，我们就可以更新答案，否则就令 $t = f_{t, j}$ 。
@@ -1911,11 +1911,31 @@ $2 \leq n \leq 5000, 2 \leq k \leq 5000$
 
 时间复杂度 $O(\sum k)$ 。
 
-** Solution 167D  Wizards and Roads
+** Accepted 167D  Wizards and Roads
 *** 题意
+平面上有 $n$ 个点，给定前 $k$ 个点以及 4 个参数 $a, b, c, d$ ，后 $n - k$ 个点的坐标生成方式是 $x_{i + 1} = (a x_i + b) \mod{P}, y_{i + 1} = (c x_i + b) \mod{P}$ ，保证任意两点的 $x, y$ 均不相同。定义两点 $u, v (y_u < y_v)$ 之间的拐角为 $(x, y)$ 为下图：
 
+#+latex: \begin{center}\includegraphics[scale = 1]{pic/167D.png}\end{center}
+
+ $u, v (y_u > y_v)$ 两点之间有边的条件为： $\forall w$ 在 $u, v$ 的拐角内，都存在一个点 $s$ 使得 $s$ 不在 $u, v$ 的拐角内，且 $\min (x_u, x_v) < x_s < \max(x_u, x_v) \and y_s > y_v$ 。
+
+现在有 $Q$ 个询问，每次把横坐标在 $[L, R]$ 之间的点拿出来，问最多可以连多少条边，使得任意两条边不共点。
+
+$n,Q \leq 10^5, P = 10^9 + 7, k \leq 30$
 
 *** 算法
+由后 $n - k$ 个点的生成方式，我们可以知道，这 $n$ 个点可以看成是随机的。通过对两点之间有边的条件的分析，我们可以得到一个结论：
+
+#+BEGIN_LaTeX
+\begin{theorem}
+把原图转换为一棵 treap ，二叉搜索树的关键字是横坐标，堆的关键字是纵坐标。那么两点之间有边的条件是两点是父子关系。
+\end{theorem}
+#+END_LaTeX
+
+如果只有一次询问，我们可以轻松做一遍树形 dp 即可。但是有多组询问，于是我们可以用上点随机这个性质。点随机导致树的高度期望是 $O(\log n)$ 的。而我们可以 $O(h)$ 把一个 treap 按关键字拆成两个 treap ，还可以在 $O(h)$ 把一个 treap 合并。于是对于每次询问，我们可以把对应的区间所代表的区间拆下来，回答完询问后在合并回去，每一次的时间复杂度期望是 $O(\log n)$ 的。
+
+总体时间复杂度是 $O((n + Q) \log n)$ 。
+
 ** Accepted 209C  Trails and Glades
 *** 题意
     给定一个无向图，要求添加尽量少的边，使得从 1 开始能够遍历所有的边恰好一次并回到 1 。
@@ -2015,7 +2035,9 @@ $n \leq 10^6, |s| \leq 10^6$
 
 ** Solution 229E  Gifts
 *** 题意
+
 *** 算法
+
 * Footnotes
 
 [fn:1] 参考 《A Polynomial-time Algorithm for the Change-Making Problem》 David Pearson, June 14, 1994 。
