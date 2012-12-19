@@ -1,0 +1,74 @@
+% Created 2012-12-16 Sun 19:43
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{ctex}
+\usepackage{mathtools}
+\everymath{\displaystyle}
+\usepackage{libertineotf}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{geometry}
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{\emph{CodeForces solution}}
+\author{\emph{罗雨屏}}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.8.11}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\vspace*{1cm}
+
+\newcommand{\abs}[1]{{\left\vert #1 \right\vert}}
+\newcommand{\and}{\hspace{0.1cm} \textbf{and} \hspace{0.1cm}}
+\newcommand{\or}{\hspace{0.1cm} \textbf{or} \hspace{0.1cm}}
+\newcommand{\xor}{\hspace{0.1cm} \textbf{xor} \hspace{0.1cm}}
+\newcommand{\floor}[ 1]{{\lfloor #1 \rfloor}}
+\newcommand{\ceil}[ 1]{{\lceil #1 \rceil}}
+\newtheorem{improve}{优化}
+\newtheorem{theorem}{定理}
+\newtheorem{proof}{证明}
+\newtheorem{problem}{问题}
+\newtheorem{definition}{定义}
+
+\section{Volume II}
+\label{sec-1}
+\subsection{30E   Tricky and Clever Password}
+\label{sec-1-1}
+\subsubsection{题意}
+\label{sec-1-1-1}
+
+    给定一个字符串 $S$ ，要求表示成 $A + prefix + B + middle + C + suffix$ 的形式，其中除 middle 外的其余字符串均可以为空，且 prefix 和 suffix 对称相同， middle 为回文串，且 $\abs{prefix + middle + suffix}$ 最大。
+
+    $\abs{S} \leq 10^5$
+\subsubsection{算法}
+\label{sec-1-1-2}
+
+    不妨令 $T$ 为 $S$ 翻转后的串。可以知道 prefix 一定是 $T$ 的前缀。我们先用 Manacher 算法用 $O(n)$ 的时间处理出以 $i$ 为中心的最长回文串的长度。考虑枚举 middle 的终点。显然 middle 应该越长越好。那么 prefix 的最长的长度为 middle 之前串中，最长的一个子串，使得这个子串是 $T$ 的前缀，且不能超过 middle 后串的长度。我们用 KMP 算法可以求出 $S$ 的每个前缀 $pre_i$ 的最长后缀，使得这个后缀是 $T$ 的子串。枚举了 middle 的长度后， prefix 的长度显然就是前若干个前缀中最长后缀的最大值，直接求一个前缀最小值即可。
+
+    复杂度 $O(N)$ 。
+
+\end{document}

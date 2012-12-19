@@ -1,0 +1,18 @@
+% \documentclass[a4paper]{article}
+
+% \usepackage{tikz}
+
+% \begin{document}
+
+\begin{tikzpicture}[scale = 0.7]
+  \draw [->, thick] (0, 0) -- (9, 0)
+        [->, thick] (0, 0) -- (0, 7);
+  \draw [blue, thick] (4, 3) -- (4, 7)
+        [blue, thick] (4, 3) -- (9, 3);
+  \draw (4, 3) node [above right] {$(b, a)$};
+  \draw [very thick] (3, 0) arc [delta angle = -acos (0.8), start angle = 180, radius = 1cm] node [below left] {$\theta$};
+  % \draw (3, 0) arc (180 :  : 1cm) -- cycle;
+  \draw [red, thick, rotate around = {-acos (0.8) : (0, 3)}] (0, 3) rectangle (5, 5.4);
+\end{tikzpicture}
+
+% \end{document}
